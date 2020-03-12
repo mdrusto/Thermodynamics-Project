@@ -171,11 +171,15 @@ elseif size(p,1)==9 % Concept D
     p5_6T=linspace(T(5),T(6));
     plot(p5_6s,p5_6T,'--m');
     
-    p6_7s=linspace(s(6),XSteam('sV_p',p(6)));
-    p6_7T=linspace(T(6),XSteam('TSat_p',p(6)));
-    p6_7s_sat=linspace(XSteam('sV_p',p(7)),XSteam('sL_p',p(7)));
-    plot(p6_7s,p6_7T,'-m');
-    plot(p6_7s_sat,XSteam('TSat_p',p(6))*ones(size(p6_7s_sat,1),size(p6_7s_sat,2)),'-m');
+    p6_7s=linspace(s(6),s(7));
+    if h(6)>XSteam('hV_p',p(6))
+        p6_7T=XSteam_array('T_ps',p(6)*ones(size(p6_7s,1),size(p6_7s,2)),p6_7s);
+        plot(p6_7s,p6_7T,'-m');
+        p6_7s_sat=linspace(XSteam('sV_p',p(6)),XSteam('sL_p',p(6)));
+        plot(p6_7s_sat,T(7)*ones(size(p6_7s_sat,1),size(p6_7s_sat,2)),'-m');
+    else
+        plot(p6_7s,XSteam('TSat_p',p(6))*ones(size(p6_7s,1),size(p6_7s,2)),'-m');
+    end
     
     p7_8s=linspace(s(7),s(8));
     p7_8T=linspace(T(7),T(8));
